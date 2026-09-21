@@ -36,11 +36,17 @@ const questions = [
 const values = Object.create(null);
 let current = 0;
 let submitted = false;
+let choiceAdvanceTimer = null;
+const CHOICE_FEEDBACK_MS = 220;
 const $ = id => document.getElementById(id);
 const escapeHtml = text => String(text).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const filled = () => questions.filter(q => String(values[q.key] || '').trim()).length;
 
 function render() {
+  if (choiceAdvanceTimer !== null) {
+    clearTimeout(choiceAdvanceTimer);
+    choiceAdvanceTimer = null;
+  }
   const q = questions[current];
   $('step-counter').innerHTML = `${String(current + 1).padStart(2,'0')} <span>/ 30</span>`;
   $('progress-fill').style.width = `${filled() / 30 * 100}%`;
@@ -51,6 +57,7 @@ function render() {
   $('question-help').textContent = q.type === 'choice' ? 'Choose one option to continue.' : q.type === 'select' ? 'Choose one option from the menu.' : 'You can use synthetic details for this demo.';
   $('form-error').hidden = true;
   $('back-button').disabled = current === 0;
+  $('next-button').disabled = false;
   $('next-button').innerHTML = current === 29 ? 'SUBMIT <span aria-hidden="true">↗</span>' : 'OK <span aria-hidden="true">↗</span>';
   document.querySelectorAll('[data-section-dot]').forEach((dot,i) => {
     dot.classList.toggle('active', Math.floor(current / 10) === i);
@@ -116,9 +123,24 @@ function advance() {
 $('answer-host').addEventListener('input', syncAnswer);
 $('answer-host').addEventListener('change', event => {
   syncAnswer(event);
-  if (event.target.type === 'radio' || event.target.tagName === 'SELECT') advance();
+  if (event.target.type === 'radio') {
+    if (choiceAdvanceTimer !== null) return;
+    const selected = event.target.closest('.choice-option');
+    selected?.classList.add('is-confirming');
+    $('next-button').disabled = true;
+    $('back-button').disabled = true;
+    choiceAdvanceTimer = setTimeout(() => {
+      choiceAdvanceTimer = null;
+      advance();
+    }, CHOICE_FEEDBACK_MS);
+  } else if (event.target.tagName === 'SELECT') {
+    advance();
+  }
 });
-$('question-form').addEventListener('submit', event => {event.preventDefault();advance();});
+$('question-form').addEventListener('submit', event => {
+  event.preventDefault();
+  if (choiceAdvanceTimer === null) advance();
+});
 $('question-form').addEventListener('keydown', event => {
   if (event.key === 'Enter' && event.target.tagName === 'TEXTAREA' && !event.shiftKey) {
     event.preventDefault(); advance();

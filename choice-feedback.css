@@ -1,0 +1,29 @@
+.choice-option.is-confirming span {
+  border-color: #79fff0;
+  background: #24544e;
+  box-shadow: 0 0 0 2px #79fff04d, 0 0 24px #29bdb455;
+  color: #fff;
+  transform: translateY(-2px) scale(1.012);
+}
+
+.choice-option.is-confirming span::before {
+  content: "✓";
+  color: #a9fff4;
+}
+
+.choice-option.is-confirming span::after {
+  content: "SELECTED";
+  margin-left: auto;
+  padding-left: 12px;
+  color: #a9fff4;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .choice-option.is-confirming span {
+    transform: none;
+  }
+}
