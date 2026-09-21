@@ -1,17 +1,19 @@
-.choice-option.is-confirming span {
-  border-color: #79fff0;
-  background: #24544e;
-  box-shadow: 0 0 0 2px #79fff04d, 0 0 24px #29bdb455;
+.choice-option.is-confirming input:checked + span {
+  border-color: #8cfff0;
+  background: #050d0b;
+  box-shadow: inset 0 0 0 1px #8cfff0, 0 0 0 3px #2abdb480;
   color: #fff;
-  transform: translateY(-2px) scale(1.012);
+  transform: scale(0.985);
+  transition: background-color 0.07s ease-out, border-color 0.07s ease-out,
+    box-shadow 0.07s ease-out, transform 0.07s ease-out;
 }
 
-.choice-option.is-confirming span::before {
+.choice-option.is-confirming input:checked + span::before {
   content: "✓";
   color: #a9fff4;
 }
 
-.choice-option.is-confirming span::after {
+.choice-option.is-confirming input:checked + span::after {
   content: "SELECTED";
   margin-left: auto;
   padding-left: 12px;
@@ -23,7 +25,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .choice-option.is-confirming span {
+  .choice-option.is-confirming input:checked + span {
     transform: none;
+    transition: none;
   }
 }

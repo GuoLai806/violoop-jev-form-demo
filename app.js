@@ -37,7 +37,7 @@ const values = Object.create(null);
 let current = 0;
 let submitted = false;
 let choiceAdvanceTimer = null;
-const CHOICE_FEEDBACK_MS = 220;
+const CHOICE_FEEDBACK_MS = 380;
 const $ = id => document.getElementById(id);
 const escapeHtml = text => String(text).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const filled = () => questions.filter(q => String(values[q.key] || '').trim()).length;
