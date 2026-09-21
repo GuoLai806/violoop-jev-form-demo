@@ -81,14 +81,20 @@ function syncAnswer(event) {
 
 function advance() {
   const q = questions[current];
-  const answer = String(values[q.key] || '').trim();
+  // Native Accessibility value-setting may change a browser control without
+  // dispatching an input event. Read the visible control at the commit point,
+  // so keyboard users and AX clients follow the same validation path.
+  const control = q.type === 'choice'
+    ? document.querySelector(`[name="${q.key}"]:checked`)
+    : document.querySelector(`[name="${q.key}"]`);
+  const answer = String(control?.value || values[q.key] || '').trim();
+  if (answer) values[q.key] = answer;
   if (!answer) {
     $('form-error').textContent = 'Please answer this question to continue.';
     $('form-error').hidden = false;
     $('answer-input')?.focus();
     return false;
   }
-  const control = document.querySelector(`[name="${q.key}"]`);
   if ((q.type === 'email' || q.type === 'url') && !control.checkValidity()) {
     $('form-error').textContent = q.type === 'email' ? 'Please enter a valid email address.' : 'Please enter a full URL, including https://';
     $('form-error').hidden = false;
