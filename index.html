@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#080b0c" />
+    <meta name="description" content="A 30-question, one-at-a-time profile form for testing browser automation." />
+    <title>Profile Flow — Violoop Form Lab</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23080b0c'/%3E%3Cpath d='M13 18l19 29 19-29' fill='none' stroke='%2329bdb4' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="site-header">
+        <div class="brand" aria-label="Violoop Form Lab">VIOLOOP<span class="brand-dot">.</span><span class="brand-note">FORM LAB / 2026</span></div>
+        <div class="header-right"><span class="live-dot" aria-hidden="true"></span> LIVE DEMO <span class="header-divider">/</span> LOCAL-FIRST</div>
+      </header>
+
+      <main class="stage">
+        <div class="stage-top">
+          <span class="stage-label">PROFILE FLOW <span class="stage-separator">◆</span> APPLICATION 001</span>
+          <span id="step-counter" class="step-counter">01 <span>/ 30</span></span>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="Form progress" aria-valuemin="0" aria-valuemax="30" aria-valuenow="0"><span id="progress-fill"></span></div>
+
+        <section id="question-view" class="question-view" aria-live="polite">
+          <div class="question-meta"><span id="category">ABOUT YOU</span><span id="field-type">SHORT ANSWER</span></div>
+          <form id="question-form" novalidate>
+            <label id="question-label" class="question-label" for="answer-input">What is your first name?</label>
+            <div id="answer-host" class="answer-host"></div>
+            <p id="question-help" class="question-help"></p>
+            <p id="form-error" class="form-error" role="alert" hidden></p>
+            <div class="question-actions">
+              <button id="next-button" class="next-button" type="submit">OK <span aria-hidden="true">↗</span></button>
+              <span class="keyboard-hint">press <kbd>Enter ↵</kbd></span>
+            </div>
+          </form>
+        </section>
+
+        <section id="success-view" class="success-view" hidden aria-live="polite">
+          <div class="success-ring" aria-hidden="true">✓</div>
+          <span class="completion-label">FLOW COMPLETE / 30 OF 30</span>
+          <h1>All done<span class="teal">.</span></h1>
+          <p>Your demo response is complete. No information was sent to a server.</p>
+          <div class="receipt"><span>REFERENCE</span><strong id="receipt-code"></strong></div>
+          <button id="restart-button" type="button" class="restart-button">START AGAIN ↗</button>
+        </section>
+
+        <div class="stage-footer">
+          <button id="back-button" type="button" class="back-button" disabled>← BACK</button>
+          <div class="section-dots" aria-label="Form sections"><span data-section-dot="0"></span><span data-section-dot="1"></span><span data-section-dot="2"></span></div>
+          <span class="footer-note">DEMO ONLY · SYNTHETIC ANSWERS WELCOME</span>
+        </div>
+      </main>
+      <div class="ambient ambient-one" aria-hidden="true"></div><div class="ambient ambient-two" aria-hidden="true"></div>
+    </div>
+  </body>
+</html>
