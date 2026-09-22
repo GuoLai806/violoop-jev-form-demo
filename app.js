@@ -75,6 +75,7 @@ function render() {
   }
   window.scrollTo({top:0,behavior:'instant'});
   if (q.type !== 'choice') $('answer-input').focus({preventScroll:true});
+  window.dispatchEvent(new CustomEvent('profile:question', {detail:{number:current + 1}}));
 }
 
 function syncAnswer(event) {
@@ -117,6 +118,7 @@ function advance() {
   document.querySelector('.progress-track').setAttribute('aria-valuenow','30');
   $('receipt-code').textContent = `VL-${Date.now().toString(36).toUpperCase()}`;
   $('back-button').disabled = true;
+  window.dispatchEvent(new CustomEvent('profile:complete', {detail:{receipt:$('receipt-code').textContent}}));
   return true;
 }
 
@@ -148,6 +150,7 @@ $('question-form').addEventListener('keydown', event => {
 });
 $('back-button').addEventListener('click', () => {if (current > 0 && !submitted) {current--;render();}});
 $('restart-button').addEventListener('click', () => {
+  window.dispatchEvent(new CustomEvent('profile:restart'));
   questions.forEach(q => delete values[q.key]);
   current = 0; submitted = false;
   $('question-view').hidden = false; $('success-view').hidden = true;

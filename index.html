@@ -9,6 +9,8 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23080b0c'/%3E%3Cpath d='M13 18l19 29 19-29' fill='none' stroke='%2329bdb4' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./choice-feedback.css" />
+    <link rel="stylesheet" href="./run-stats.css" />
+    <script src="./run-stats.js" defer></script>
     <script src="./app.js" defer></script>
   </head>
   <body>
@@ -19,6 +21,11 @@
       </header>
 
       <main class="stage">
+        <section class="run-stats" aria-label="Jev run statistics" aria-live="off">
+          <div class="run-stat"><span>TOKENS</span><strong data-stat="tokens">—</strong><small data-stat="token-detail">Jev input + output</small></div>
+          <div class="run-stat"><span>EST. COST</span><strong data-stat="cost">—</strong><small>USD · Jev API</small></div>
+          <div class="run-stat"><span>ELAPSED</span><strong data-stat="elapsed">0.0<span class="stat-unit">s</span></strong><small>Page opened → complete</small></div>
+        </section>
         <div class="stage-top">
           <span class="stage-label">PROFILE FLOW <span class="stage-separator">◆</span> 30 QUESTIONS</span>
           <span id="step-counter" class="step-counter">01 <span>/ 30</span></span>
@@ -43,6 +50,12 @@
           <div class="success-ring" aria-hidden="true">✓</div>
           <span class="completion-label">FLOW COMPLETE / 30 OF 30</span>
           <h1>All done<span class="teal">.</span></h1>
+          <section class="finish-stats" aria-label="Jev run statistics" aria-live="off">
+            <div class="run-stat"><span>TOTAL TOKENS</span><strong data-stat="tokens">—</strong><small data-stat="token-detail">Jev input + output</small></div>
+            <div class="run-stat"><span>EST. COST</span><strong data-stat="cost">—</strong><small>USD · Jev API</small></div>
+            <div class="run-stat"><span>FINISH TIME</span><strong data-stat="elapsed">—</strong><small>Page opened → complete</small></div>
+          </section>
+          <div class="stats-note" aria-label="Jev run statistics"><span id="usage-status">Open through Violoop to connect Jev usage.</span><br><a href="https://docs.typesafe.ai/models" target="_blank" rel="noopener noreferrer">Official rate</a>: $0.042 / 1M input tokens · output free. Jev usage only; excludes the coordinating model. Rate checked 22 Sep 2026.</div>
           <p>Your profile is complete. Your answers stay in this browser and have not been sent to a server.</p>
           <div class="receipt"><span>REFERENCE</span><strong id="receipt-code"></strong></div>
           <button id="restart-button" type="button" class="restart-button">START AGAIN ↗</button>
