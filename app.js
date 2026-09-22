@@ -54,7 +54,7 @@ function render() {
   $('category').textContent = q.category;
   $('field-type').textContent = q.type === 'choice' || q.type === 'select' ? 'SELECT ONE' : q.type === 'textarea' ? 'LONG ANSWER' : 'SHORT ANSWER';
   $('question-label').textContent = q.label;
-  $('question-help').textContent = q.type === 'choice' ? 'Choose one option to continue.' : q.type === 'select' ? 'Choose one option from the menu.' : 'You can use synthetic details for this demo.';
+  $('question-help').textContent = q.type === 'choice' ? 'Choose one option to continue.' : q.type === 'select' ? 'Choose one option from the menu.' : 'Enter your answer to continue.';
   $('form-error').hidden = true;
   $('back-button').disabled = current === 0;
   $('next-button').disabled = false;
