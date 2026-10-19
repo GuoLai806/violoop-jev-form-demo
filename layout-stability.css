@@ -1,0 +1,7 @@
+/* Decorative circles extend beyond the shell. `hidden` clips them but also
+   creates a scroll container: focus/scroll-into-view can pan the whole header
+   and form horizontally. `clip` preserves clipping without scroll authority.
+   Normal document scrolling remains available for tall questions. */
+.shell {
+  overflow: clip;
+}
